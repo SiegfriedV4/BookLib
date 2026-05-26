@@ -1,4 +1,3 @@
-using BookLibrary.Application;
 using BookLibrary.Domain;
 using Dapper;
 using Microsoft.Data.Sqlite;

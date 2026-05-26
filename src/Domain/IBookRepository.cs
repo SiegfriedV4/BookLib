@@ -1,6 +1,6 @@
-using BookLibrary.Application;
-
 namespace BookLibrary.Domain;
+
+public record BookDto(Guid Id, string Title, string Author);
 
 public interface IBookRepository
 {
