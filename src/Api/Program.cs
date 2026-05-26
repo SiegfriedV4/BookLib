@@ -1,14 +1,15 @@
 using BookLibrary.Endpoints;
 using BookLibrary.Application;
+using BookLibrary.Domain;
 using BookLibrary.Infrastructure;
-using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+
+const string connectionString = "Data Source=books.db";
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<BookContext>(o => o.UseSqlite("Data Source=books.db"));
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<AddBookCommand>()); // this is where the handlers regisrter using di
-// it is useful to register the handlers in the same assembly as the commands and queries
+builder.Services.AddScoped<IBookRepository>(_ => new DapperBookRepository(connectionString));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<AddBookCommand>());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -32,10 +33,6 @@ app.Use(async (context, next) =>
 app.MapBookEndpoints();
 
 // Seed large dataset on first run
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<BookContext>();
-    await BookSeeder.SeedAsync(db, count: 20_000);
-}
+await BookSeeder.SeedAsync(connectionString, count: 20_000);
 
 app.Run();
