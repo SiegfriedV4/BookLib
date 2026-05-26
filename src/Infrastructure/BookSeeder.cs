@@ -1,5 +1,5 @@
-using BookLibrary.Domain;
-using Microsoft.EntityFrameworkCore;
+using Dapper;
+using Microsoft.Data.Sqlite;
 
 namespace BookLibrary.Infrastructure;
 
@@ -31,9 +31,13 @@ public static class BookSeeder
         "Steven Skiena", "Gayle McDowell"
     ];
 
-    public static async Task SeedAsync(BookContext db, int count = 50_000)
+    public static async Task SeedAsync(string connectionString, int count = 20_000)
     {
-        if (await db.Books.AnyAsync())
+        using var conn = new SqliteConnection(connectionString);
+        await conn.OpenAsync();
+
+        var existing = await conn.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM Books");
+        if (existing > 0)
         {
             Console.WriteLine("Database already seeded — skipping.");
             return;
@@ -41,28 +45,23 @@ public static class BookSeeder
 
         Console.WriteLine($"Seeding {count:N0} books...");
 
-        var random = new Random(42); // fixed seed = reproducible data
-        var books = new List<Book>(count);
-
-        for (int i = 0; i < count; i++)
-        {
-            var title  = Titles[random.Next(Titles.Length)];
-            var author = Authors[random.Next(Authors.Length)];
-
-            books.Add(new Book
-            {
-                Id     = Guid.NewGuid(),
-                Title  = $"{title} Vol.{i + 1}",
-                Author = author
-            });
-        }
-
-        // Insert in batches of 1000 to avoid memory pressure
+        var random = new Random(42);
         const int batchSize = 1_000;
-        for (int i = 0; i < books.Count; i += batchSize)
+
+        for (int i = 0; i < count; i += batchSize)
         {
-            db.Books.AddRange(books.Skip(i).Take(batchSize));
-            await db.SaveChangesAsync();
+            var batch = Enumerable.Range(i, Math.Min(batchSize, count - i)).Select(n =>
+            {
+                var title  = Titles[random.Next(Titles.Length)];
+                var author = Authors[random.Next(Authors.Length)];
+                return new { Id = Guid.NewGuid().ToString(), Title = $"{title} Vol.{n + 1}", Author = author };
+            }).ToList();
+
+            using var tx = conn.BeginTransaction();
+            await conn.ExecuteAsync(
+                "INSERT INTO Books (Id, Title, Author) VALUES (@Id, @Title, @Author)",
+                batch, tx);
+            await tx.CommitAsync();
 
             if ((i / batchSize) % 10 == 0)
                 Console.WriteLine($"  Inserted {Math.Min(i + batchSize, count):N0} / {count:N0}");
