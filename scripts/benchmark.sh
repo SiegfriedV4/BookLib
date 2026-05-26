@@ -49,13 +49,26 @@ echo ""
 echo "▶ Running endpoints..."
 echo ""
 
-hit GET  "/api/books (list all)"              "$BASE_URL/api/books"
-hit GET  "/api/books/{id} (get one)"          "$BASE_URL/api/books/$BOOK_ID"
-hit GET  "/api/books/search?term=martin"      "$BASE_URL/api/books/search?term=martin"
-hit GET  "/api/books/search?term=clean"       "$BASE_URL/api/books/search?term=clean"
-hit POST "/api/books (create)"                "$BASE_URL/api/books" '{"title":"New Book","author":"New Author"}'
-hit PUT  "/api/books/{id} (update)"           "$BASE_URL/api/books/$BOOK_ID" '{"title":"Updated Book","author":"Updated Author"}'
-hit DELETE "/api/books/{id} (delete)"         "$BASE_URL/api/books/$BOOK_ID"
+# ── Standard queries ───────────────────────────────────
+echo "── Standard ──────────────────────────────────────────"
+hit GET    "/api/books (list all 20k)"           "$BASE_URL/api/books"
+hit GET    "/api/books/{id} (single lookup)"     "$BASE_URL/api/books/$BOOK_ID"
+hit GET    "search?term=martin"                  "$BASE_URL/api/books/search?term=martin"
+hit GET    "search?term=clean"                   "$BASE_URL/api/books/search?term=clean"
+hit POST   "/api/books (create)"                 "$BASE_URL/api/books" '{"title":"New Book","author":"New Author"}'
+hit PUT    "/api/books/{id} (update)"            "$BASE_URL/api/books/$BOOK_ID" '{"title":"Updated Book","author":"Updated Author"}'
+hit DELETE "/api/books/{id} (delete)"            "$BASE_URL/api/books/$BOOK_ID"
+
+echo ""
+
+# ── Heavy queries ───────────────────────────────────────
+echo "── Heavy ─────────────────────────────────────────────"
+hit GET  "paged page=1 size=100"                 "$BASE_URL/api/books/paged?page=1&pageSize=100"
+hit GET  "paged page=1 size=1000"                "$BASE_URL/api/books/paged?page=1&pageSize=1000"
+hit GET  "stats/authors (GROUP BY + COUNT)"      "$BASE_URL/api/books/stats/authors"
+hit GET  "by-author=Martin Fowler (full scan)"   "$BASE_URL/api/books/by-author?author=Martin%20Fowler"
+hit GET  "by-author=Robert C. Martin"            "$BASE_URL/api/books/by-author?author=Robert%20C.%20Martin"
+hit GET  "count (COUNT * full table)"            "$BASE_URL/api/books/count"
 
 echo ""
 echo "$DIVIDER"
