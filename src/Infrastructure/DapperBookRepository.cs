@@ -60,4 +60,45 @@ public class DapperBookRepository(string connectionString) : IBookRepository
             new { Id = id });
         return rows > 0;
     }
+
+    // Paginated query — fetches a page of books + total count in two queries
+    public async Task<PagedBooksDto> GetPagedAsync(int page, int pageSize, CancellationToken ct)
+    {
+        using var conn = Connect();
+        var offset = (page - 1) * pageSize;
+
+        var books = (await conn.QueryAsync<BookDto>(
+            "SELECT Id, Title, Author FROM Books ORDER BY Title LIMIT @PageSize OFFSET @Offset",
+            new { PageSize = pageSize, Offset = offset })).ToList();
+
+        var total = await conn.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM Books");
+
+        return new PagedBooksDto { Books = books, TotalCount = total, Page = page, PageSize = pageSize };
+    }
+
+    // Aggregation — group all books by author, order by most books
+    public async Task<List<AuthorStatsDto>> GetAuthorStatsAsync(CancellationToken ct)
+    {
+        using var conn = Connect();
+        var results = await conn.QueryAsync<AuthorStatsDto>(
+            "SELECT Author, COUNT(*) AS BookCount FROM Books GROUP BY Author ORDER BY BookCount DESC");
+        return results.ToList();
+    }
+
+    // Filter all books by exact author — full table scan on 20k rows
+    public async Task<List<BookDto>> GetBooksByAuthorAsync(string author, CancellationToken ct)
+    {
+        using var conn = Connect();
+        var results = await conn.QueryAsync<BookDto>(
+            "SELECT Id, Title, Author FROM Books WHERE Author = @Author ORDER BY Title",
+            new { Author = author });
+        return results.ToList();
+    }
+
+    // Simple count across full table
+    public async Task<int> CountAsync(CancellationToken ct)
+    {
+        using var conn = Connect();
+        return await conn.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM Books");
+    }
 }

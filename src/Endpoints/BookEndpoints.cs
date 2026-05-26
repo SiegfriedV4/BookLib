@@ -39,6 +39,24 @@ public static class BookEndpoints
             await m.Send(new DeleteBookCommand(id))
                 ? Results.NoContent()
                 : Results.NotFound());
+
+        // Heavy queries 
+
+        // GET /api/books/paged?page=1&pageSize=50
+        app.MapGet("/api/books/paged", async (IMediator m, int page, int pageSize) =>
+            Results.Ok(await m.Send(new GetPagedBooksQuery(page, pageSize))));
+
+        // GET /api/books/stats/authors — count books per author
+        app.MapGet("/api/books/stats/authors", async (IMediator m) =>
+            Results.Ok(await m.Send(new GetAuthorStatsQuery())));
+
+        // GET /api/books/by-author?author=Martin Fowler
+        app.MapGet("/api/books/by-author", async (IMediator m, string author) =>
+            Results.Ok(await m.Send(new GetBooksByAuthorQuery(author))));
+
+        // GET /api/books/count
+        app.MapGet("/api/books/count", async (IMediator m) =>
+            Results.Ok(new { count = await m.Send(new GetBookCountQuery()) }));
     }
 }
 
