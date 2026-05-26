@@ -3,7 +3,7 @@ using MediatR;
 
 namespace BookLibrary.Application;
 
-public record GetBookByIdQuery(Guid Id) : IRequest<BookDto?>;
+public record GetBookByIdQuery(string Id) : IRequest<BookDto?>;
 
 public class GetBookByIdQueryHandler(IBookRepository repo) : IRequestHandler<GetBookByIdQuery, BookDto?>
 {

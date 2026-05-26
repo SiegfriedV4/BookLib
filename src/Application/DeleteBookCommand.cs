@@ -3,7 +3,7 @@ using MediatR;
 
 namespace BookLibrary.Application;
 
-public record DeleteBookCommand(Guid Id) : IRequest<bool>;
+public record DeleteBookCommand(string Id) : IRequest<bool>;
 
 public class DeleteBookCommandHandler(IBookRepository repo) : IRequestHandler<DeleteBookCommand, bool>
 {

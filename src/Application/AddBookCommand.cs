@@ -3,10 +3,10 @@ using MediatR;
 
 namespace BookLibrary.Application;
 
-public record AddBookCommand(string Title, string Author) : IRequest<Guid>;
+public record AddBookCommand(string Title, string Author) : IRequest<string>;
 
-public class AddBookCommandHandler(IBookRepository repo) : IRequestHandler<AddBookCommand, Guid>
+public class AddBookCommandHandler(IBookRepository repo) : IRequestHandler<AddBookCommand, string>
 {
-    public Task<Guid> Handle(AddBookCommand req, CancellationToken ct) =>
+    public Task<string> Handle(AddBookCommand req, CancellationToken ct) =>
         repo.AddAsync(req.Title, req.Author, ct);
 }

@@ -19,7 +19,7 @@ public static class BookEndpoints
             Results.Ok(await m.Send(new GetBooksQuery())));
 
         // GET /api/books/{id} — get one
-        app.MapGet("/api/books/{id:guid}", async (IMediator m, Guid id) =>
+        app.MapGet("/api/books/{id}", async (IMediator m, string id) =>
             await m.Send(new GetBookByIdQuery(id)) is { } book
                 ? Results.Ok(book)
                 : Results.NotFound());
@@ -29,13 +29,13 @@ public static class BookEndpoints
             Results.Ok(await m.Send(new SearchBooksQuery(term))));
 
         // PUT /api/books/{id} — update
-        app.MapPut("/api/books/{id:guid}", async (IMediator m, Guid id, AddBookRequest req) =>
+        app.MapPut("/api/books/{id}", async (IMediator m, string id, AddBookRequest req) =>
             await m.Send(new UpdateBookCommand(id, req.Title, req.Author))
                 ? Results.NoContent()
                 : Results.NotFound());
 
         // DELETE /api/books/{id} — delete
-        app.MapDelete("/api/books/{id:guid}", async (IMediator m, Guid id) =>
+        app.MapDelete("/api/books/{id}", async (IMediator m, string id) =>
             await m.Send(new DeleteBookCommand(id))
                 ? Results.NoContent()
                 : Results.NotFound());

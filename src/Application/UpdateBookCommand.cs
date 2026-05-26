@@ -3,7 +3,7 @@ using MediatR;
 
 namespace BookLibrary.Application;
 
-public record UpdateBookCommand(Guid Id, string Title, string Author) : IRequest<bool>;
+public record UpdateBookCommand(string Id, string Title, string Author) : IRequest<bool>;
 
 public class UpdateBookCommandHandler(IBookRepository repo) : IRequestHandler<UpdateBookCommand, bool>
 {

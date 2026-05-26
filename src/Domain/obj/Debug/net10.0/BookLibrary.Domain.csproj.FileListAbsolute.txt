@@ -20,3 +20,4 @@
 /Users/sashengovinasamy/Documents/Dev/Dotnet/BookLib/src/Domain/obj/Debug/net10.0/refint/BookLibrary.Domain.dll
 /Users/sashengovinasamy/Documents/Dev/Dotnet/BookLib/src/Domain/obj/Debug/net10.0/BookLibrary.Domain.pdb
 /Users/sashengovinasamy/Documents/Dev/Dotnet/BookLib/src/Domain/obj/Debug/net10.0/ref/BookLibrary.Domain.dll
+/Users/sashengovinasamy/Documents/Dev/Dotnet/BookLib/src/Domain/obj/Debug/net10.0/BookLibrary.Domain.sourcelink.json

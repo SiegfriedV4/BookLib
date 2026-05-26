@@ -28,3 +28,4 @@
 /Users/sashengovinasamy/Documents/Dev/Dotnet/BookLib/src/Infrastructure/bin/Debug/net10.0/BookLibrary.Domain.pdb
 /Users/sashengovinasamy/Documents/Dev/Dotnet/BookLib/src/Infrastructure/obj/Debug/net10.0/BookLibr.8FF50D7C.Up2Date
 /Users/sashengovinasamy/Documents/Dev/Dotnet/BookLib/src/Infrastructure/obj/Debug/net10.0/ref/BookLibrary.Infrastructure.dll
+/Users/sashengovinasamy/Documents/Dev/Dotnet/BookLib/src/Infrastructure/obj/Debug/net10.0/BookLibrary.Infrastructure.sourcelink.json

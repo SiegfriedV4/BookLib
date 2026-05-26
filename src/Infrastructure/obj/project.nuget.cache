@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "M6kLy/058Hg=",
+  "dgSpecHash": "0e0Bok1tLpM=",
   "success": true,
   "projectFilePath": "/Users/sashengovinasamy/Documents/Dev/Dotnet/BookLib/src/Infrastructure/BookLibrary.Infrastructure.csproj",
   "expectedPackageFiles": [
+    "/Users/sashengovinasamy/.nuget/packages/dapper/2.1.79/dapper.2.1.79.nupkg.sha512",
+    "/Users/sashengovinasamy/.nuget/packages/microsoft.data.sqlite/10.0.8/microsoft.data.sqlite.10.0.8.nupkg.sha512",
     "/Users/sashengovinasamy/.nuget/packages/microsoft.data.sqlite.core/10.0.8/microsoft.data.sqlite.core.10.0.8.nupkg.sha512",
     "/Users/sashengovinasamy/.nuget/packages/microsoft.entityframeworkcore/10.0.8/microsoft.entityframeworkcore.10.0.8.nupkg.sha512",
     "/Users/sashengovinasamy/.nuget/packages/microsoft.entityframeworkcore.abstractions/10.0.8/microsoft.entityframeworkcore.abstractions.10.0.8.nupkg.sha512",

@@ -17,3 +17,4 @@
 /Users/sashengovinasamy/Documents/Dev/Dotnet/BookLib/src/Endpoints/obj/Debug/net10.0/refint/BookLibrary.Endpoints.dll
 /Users/sashengovinasamy/Documents/Dev/Dotnet/BookLib/src/Endpoints/obj/Debug/net10.0/BookLibrary.Endpoints.pdb
 /Users/sashengovinasamy/Documents/Dev/Dotnet/BookLib/src/Endpoints/obj/Debug/net10.0/ref/BookLibrary.Endpoints.dll
+/Users/sashengovinasamy/Documents/Dev/Dotnet/BookLib/src/Endpoints/obj/Debug/net10.0/BookLibrary.Endpoints.sourcelink.json

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "M3FJ97RCCHo=",
+  "dgSpecHash": "SRqmzgC9/XQ=",
   "success": true,
   "projectFilePath": "/Users/sashengovinasamy/Documents/Dev/Dotnet/BookLib/src/Api/BookLibrary.Api.csproj",
   "expectedPackageFiles": [
+    "/Users/sashengovinasamy/.nuget/packages/dapper/2.1.79/dapper.2.1.79.nupkg.sha512",
     "/Users/sashengovinasamy/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/Users/sashengovinasamy/.nuget/packages/mediatr/14.1.0/mediatr.14.1.0.nupkg.sha512",
     "/Users/sashengovinasamy/.nuget/packages/mediatr.contracts/2.0.1/mediatr.contracts.2.0.1.nupkg.sha512",
@@ -15,6 +16,7 @@
     "/Users/sashengovinasamy/.nuget/packages/microsoft.codeanalysis.csharp.workspaces/5.0.0/microsoft.codeanalysis.csharp.workspaces.5.0.0.nupkg.sha512",
     "/Users/sashengovinasamy/.nuget/packages/microsoft.codeanalysis.workspaces.common/5.0.0/microsoft.codeanalysis.workspaces.common.5.0.0.nupkg.sha512",
     "/Users/sashengovinasamy/.nuget/packages/microsoft.codeanalysis.workspaces.msbuild/5.0.0/microsoft.codeanalysis.workspaces.msbuild.5.0.0.nupkg.sha512",
+    "/Users/sashengovinasamy/.nuget/packages/microsoft.data.sqlite/10.0.8/microsoft.data.sqlite.10.0.8.nupkg.sha512",
     "/Users/sashengovinasamy/.nuget/packages/microsoft.data.sqlite.core/10.0.8/microsoft.data.sqlite.core.10.0.8.nupkg.sha512",
     "/Users/sashengovinasamy/.nuget/packages/microsoft.entityframeworkcore/10.0.8/microsoft.entityframeworkcore.10.0.8.nupkg.sha512",
     "/Users/sashengovinasamy/.nuget/packages/microsoft.entityframeworkcore.abstractions/10.0.8/microsoft.entityframeworkcore.abstractions.10.0.8.nupkg.sha512",
