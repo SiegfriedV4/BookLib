@@ -1,20 +1,12 @@
-using BookLibrary.Infrastructure;
+using BookLibrary.Domain;
 using MediatR;
 
 namespace BookLibrary.Application;
 
 public record UpdateBookCommand(Guid Id, string Title, string Author) : IRequest<bool>;
 
-public class UpdateBookCommandHandler(BookContext db) : IRequestHandler<UpdateBookCommand, bool>
+public class UpdateBookCommandHandler(IBookRepository repo) : IRequestHandler<UpdateBookCommand, bool>
 {
-    public async Task<bool> Handle(UpdateBookCommand req, CancellationToken ct)
-    {
-        var book = await db.Books.FindAsync([req.Id], ct);
-        if (book is null) return false;
-
-        book.Title = req.Title;
-        book.Author = req.Author;
-        await db.SaveChangesAsync(ct);
-        return true;
-    }
+    public Task<bool> Handle(UpdateBookCommand req, CancellationToken ct) =>
+        repo.UpdateAsync(req.Id, req.Title, req.Author, ct);
 }

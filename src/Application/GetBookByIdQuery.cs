@@ -1,15 +1,12 @@
-using BookLibrary.Infrastructure;
+using BookLibrary.Domain;
 using MediatR;
 
 namespace BookLibrary.Application;
 
 public record GetBookByIdQuery(Guid Id) : IRequest<BookDto?>;
 
-public class GetBookByIdQueryHandler(BookContext db) : IRequestHandler<GetBookByIdQuery, BookDto?>
+public class GetBookByIdQueryHandler(IBookRepository repo) : IRequestHandler<GetBookByIdQuery, BookDto?>
 {
-    public async Task<BookDto?> Handle(GetBookByIdQuery req, CancellationToken ct)
-    {
-        var book = await db.Books.FindAsync([req.Id], ct);
-        return book is null ? null : new BookDto(book.Id, book.Title, book.Author);
-    }
+    public Task<BookDto?> Handle(GetBookByIdQuery req, CancellationToken ct) =>
+        repo.GetByIdAsync(req.Id, ct);
 }
